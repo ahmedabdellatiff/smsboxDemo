@@ -1,0 +1,33 @@
+﻿@model SmsDemo.Web.Models.IndexViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Send Message By smsbox</h1>
+    <p class="lead"></p>
+</div>
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <label for="Mobile">Mobile Number</label>
+        @Html.TextBoxFor(x => x.Mobile, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Mobile, null, new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label for="content">Message</label>
+        @Html.TextBoxFor(x => x.Message, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Message, null, new { @class = "text-danger" })
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Send</button>
+}
+
+@if (TempData["Message"] != null)
+{
+    <script>
+        alert('@TempData["Message"]')
+    </script>
+}
